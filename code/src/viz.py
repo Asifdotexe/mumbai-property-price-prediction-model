@@ -137,3 +137,45 @@ def plot_histograms(df, columns=None, bins=10, figsize=(15, 10), xscale='linear'
 
     plt.tight_layout()
     plt.show()
+
+def plot_categorical_countplots(df, figsize=(15, 5), max_cols=3, yscale='linear', xscale='linear', max_count=10):
+    """
+    Plot count plots for categorical columns in the DataFrame.
+
+    Parameters:
+    - df (DataFrame): The DataFrame containing the data.
+    - figsize (tuple): Size of each individual subplot. Default is (15, 5).
+    - max_cols (int): Maximum number of columns in each row of subplots. Default is 3.    
+    - xscale (str): Scale for the x-axis (e.g., 'linear', 'log'). Default is 'linear'.
+    - yscale (str): Scale for the y-axis (e.g., 'linear', 'log'). Default is 'linear'.
+    """
+    # Filter columns with less than or equal to 10 unique values and are of type 'object'
+    categorical_columns = [column for column in df.columns if df[column].nunique() <= max_count and df[column].dtype == 'object']
+
+    # Determine the number of rows and columns for subplots
+    num_plots = len(categorical_columns)
+    num_rows = (num_plots + max_cols - 1) // max_cols
+    num_cols = min(num_plots, max_cols)
+
+    # Create subplots
+    fig, axs = plt.subplots(num_rows, num_cols, figsize=(figsize[0], figsize[1]*num_rows))
+    axs = axs.flatten()  # Flatten the 2D array of axes into 1D for easy iteration
+
+    # Plot count plots for each categorical column
+    for i, column in enumerate(categorical_columns):
+        sns.countplot(data=df, x=column, ax=axs[i])
+        axs[i].set_title(f'Count plot of {column}')
+        axs[i].set_xlabel(column)
+        axs[i].set_ylabel('Count')
+        # checking for scales as input 
+        if xscale:
+            axs[i].set_xscale(xscale)
+        if yscale:
+            axs[i].set_yscale(yscale)
+
+    # Remove empty subplots
+    for j in range(i + 1, len(axs)):
+        fig.delaxes(axs[j])
+    
+    plt.tight_layout()
+    plt.show()
