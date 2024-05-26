@@ -138,7 +138,7 @@ def plot_histograms(df, columns=None, bins=10, figsize=(15, 10), xscale='linear'
     plt.tight_layout()
     plt.show()
 
-def plot_categorical_countplots(df, figsize=(15, 5), max_cols=3, yscale='linear', xscale='linear', max_count=10):
+def plot_categorical_countplots(df, figsize=(15, 5), max_cols=3, yscale='linear', max_count=10):
     """
     Plot count plots for categorical columns in the DataFrame.
 
@@ -168,8 +168,6 @@ def plot_categorical_countplots(df, figsize=(15, 5), max_cols=3, yscale='linear'
         axs[i].set_xlabel(column)
         axs[i].set_ylabel('Count')
         # checking for scales as input 
-        if xscale:
-            axs[i].set_xscale(xscale)
         if yscale:
             axs[i].set_yscale(yscale)
 
