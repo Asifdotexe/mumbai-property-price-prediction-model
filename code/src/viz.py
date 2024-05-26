@@ -3,7 +3,7 @@ import seaborn as sns
 import numpy as np
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
 
-def plot_corr(corr, annot=True, cmap='RdYlGn', center=0, square=True):
+def plot_corr(corr, annot=True, cmap='RdYlGn', center=0, square=True, title='Correlation Heatmap'):
     """
     Plot a heatmap correlation plot.
 
@@ -13,6 +13,7 @@ def plot_corr(corr, annot=True, cmap='RdYlGn', center=0, square=True):
     - cmap: Colormap for the heatmap (default is 'RdYlGn')
     - center: Center value for the colormap (default is 0)
     - square: Whether to force the plot to be square (default is True)
+    - title: Set the plot title (default is Correlation Heatmap)
 
     Returns:
     - None
@@ -23,6 +24,7 @@ def plot_corr(corr, annot=True, cmap='RdYlGn', center=0, square=True):
     # Creating a heatmap correlation plot
     fig, ax = plt.subplots(figsize=(10, 10))
     sns.heatmap(corr, mask=mask, cmap=cmap, annot=annot, center=center, square=square)
+    plt.title(title)
     plt.tight_layout()
     plt.show()
 
